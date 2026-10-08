@@ -1,0 +1,36 @@
+.login-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.wrapper{
+  width: 420px;
+  height: 340px;
+  background: red;
+  color: white;
+}
+
+.wrapper h1{
+  font-size: 36px;
+  text-align: center;
+}
+
+.wrapper .forgot-password{
+  display: flex;
+  justify-content: end;
+  margin-top: -20px;
+  margin-bottom: 16px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.wrapper .forgot-password link{
+  color: white;
+  text-decoration: none;
+}
+
+.wrapper .forgot-password link:hover{
+  text-decoration: underline;
+}
