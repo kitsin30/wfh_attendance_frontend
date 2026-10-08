@@ -29,7 +29,7 @@ const Home = () => {
         });
         const data = await response.json();
 
-        if(data.status !== 200){
+        if(!response.ok){
           console.log("false");
           alert(data.message);
           return;

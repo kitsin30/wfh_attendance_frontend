@@ -40,7 +40,7 @@ const ResetPass = () => {
 
       const data = await response.json();
 
-      if(data.status !== 200){
+      if(!response.ok){
         console.log("false");
         alert(data.message + ', back to login page');
         navigate("/login");
