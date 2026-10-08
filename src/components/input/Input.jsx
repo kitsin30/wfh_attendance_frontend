@@ -1,4 +1,3 @@
-// components/Input.jsx
 import './Input.css';
 
 const Input = ({
