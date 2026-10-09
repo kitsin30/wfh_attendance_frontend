@@ -60,7 +60,8 @@
   width: 260px;
 }
 
-.user-filter-field label {
+.user-filter-field label,
+.user-modal-field label {
   font-size: 14px;
   font-weight: 600;
 }
@@ -204,6 +205,8 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 24px;
   background: #ffffff;
   border-radius: 10px;
@@ -220,14 +223,15 @@
   color: #4b5563;
 }
 
-.user-modal label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 600;
+.user-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
 }
 
-.user-modal select {
+.user-modal-field input,
+.user-modal-field select {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 12px;
@@ -238,7 +242,8 @@
   font-size: 14px;
 }
 
-.user-modal select:focus {
+.user-modal-field input:focus,
+.user-modal-field select:focus {
   border-color: #2563eb;
 }
 
