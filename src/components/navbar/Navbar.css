@@ -18,15 +18,33 @@
 .navbar .logout{
   width: 40%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: end;
 }
 
-.navbar .link{
+.navbar a{
   text-decoration: none;
   color: white;
   margin-left: 20px;
   margin-right: 20px;
 }
-.navbar .link:hover{
+
+.navbar a:hover{
+  color: red;
+}
+
+.navbar .navbar-opt {
+  width: 40%;
+  display: flex;
+  justify-content: start;
+}
+
+.navbar .navbar-opt a{
+  text-decoration: none;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.navbar .navbar-opt a:hover{
   color: red;
 }
