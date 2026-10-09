@@ -28,6 +28,8 @@ const UserListTable = ({
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newUser, setNewUser] = useState(initialNewUser);
 
+  const currentUserId = localStorage.getItem("userId");
+
   const getUserLevelName = (userLevel) => {
     switch (Number(userLevel)) {
       case USER_LEVEL_OWNER:
@@ -65,7 +67,7 @@ const UserListTable = ({
   const handleSave = () => {
     if (!selectedUser) return;
 
-    onEditUser(selectedUser.userId, resetPassFlg);
+    onEditUser(selectedUser.userId, currentUserId);
     setSelectedUser(null);
   };
 
@@ -91,13 +93,7 @@ const UserListTable = ({
       return;
     }
 
-    const userToCreate = {
-      userId: newUser.userId.trim(),
-      userLevel: Number(newUser.userLevel),
-      resetPassFlg: 'Y',
-    };
-
-    onCreateUser(userToCreate);
+    onCreateUser(newUser.userId.trim(), Number(newUser.userLevel), 'Y');
 
     setShowCreateModal(false);
     setNewUser(initialNewUser);

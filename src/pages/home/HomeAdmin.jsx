@@ -1,97 +1,134 @@
-import { useEffect, useState } from 'react'
-import ReactPaginate from 'react-paginate';
-import NotesCard from '../notes/NotesCard';
-import './HomeAdmin.css';
-import Navbar from '../navbar/Navbar';
-import { FaPlus } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import './HomeAdminListAttendance.css';
+import { API_URL } from '../../config/Parameter';
+import Navbar from '../../components/navbar/Navbar';
+import UserListTable from '../../components/table/UserListTable';
 
 const HomeAdmin = () => {
-  const [notes, setNotes] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  var totalNotes = 0;
-  var noteCtr = 0;
-  var notesListShow = null;
-  if(notes !== null){
-    totalNotes = notes.length;
-    notesListShow = notes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-    noteCtr = noteCtr*(currentPage-1) + 1;
-  }
+  const [userList, setUserList] = useState([]);
 
-  const userId = localStorage.getItem("userId");
+  const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate();
-
-  try {
-    useEffect(() => {
-      const fetchNotes = async () => {
-        const response = await fetch('http://localhost:8080/notes/list', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId })
+  useEffect(() => {
+    const fetchUserList = async () => {
+      try {
+        const response = await fetch(`${API_URL}/users`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
-        const data = await response.json();
-        setNotes(data.obj);
 
-        if(data.status !== 200){
-          console.log("false");
-          alert(data.msg);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to fetch attendance');
         }
 
+        setUserList(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching attendance:', error);
+        alert(error.message || 'Failed to fetch attendance');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserList();
+  }, []);
+
+  const onCreateUser = async ({userId, password, updUid}) => {
+    try {
+      const userData = {
+        userId: userId,
+        password: password,
+        updUid: updUid
       };
-  
-      fetchNotes();
 
-    }, [userId]);
+      const response = await fetch(`${API_URL}/users/create-user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
 
-  } catch (error) {
-    console.error(error);
-    alert(error);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch attendance');
+      }
+    } catch (error) {
+      console.error('Error fetching attendance:', error);
+      alert(error.message || 'Failed to fetch attendance');
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const openAddNotesPage = () => {
-    const title = 'Add Note';
-    const flag = true;
-    localStorage.setItem('addPage', JSON.stringify({ flag }));
-    navigate("/home-admin/addnote", {
-      state: { title }
-    });
+  const onEditUser = async ({userId, updUid}) => {
+    try {
+      const userData = {
+        userId: userId,
+        updUid: updUid
+      };
+
+      const response = await fetch(`${API_URL}/users/reset-flag`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch attendance');
+      }
+    } catch (error) {
+      console.error('Error fetching attendance:', error);
+      alert(error.message || 'Failed to fetch attendance');
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const handlePageChange = (data) => {
-    setCurrentPage(data.selected + 1);
+  const onDeleteUser = async (userId) => {
+    try {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch attendance');
+      }
+    } catch (error) {
+      console.error('Error fetching attendance:', error);
+      alert(error.message || 'Failed to fetch attendance');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className='home-page'>
+    <div className="user-list-page">
       <Navbar />
 
-      <div className='note-list'>
-        {notesListShow && notesListShow.map((note) => (
-          <NotesCard key={note.id} note={note} ctr={noteCtr++} />
-        ))}
-      </div>
-
-      <div className='pagination-div'>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageChange}
-          pageRangeDisplayed={totalNotes}
-          pageCount={Math.ceil(totalNotes / 10)}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          className='pagination-menu'
-        />
-      </div>
-
-      <div className='fab' onClick={openAddNotesPage} >
-        <FaPlus className='fab-ic'/>
-      </div>
-
+      <UserListTable
+        userData={userList}
+        loading={loading}
+        onCreateUser={onCreateUser}
+        onEditUser={onEditUser}
+        onDeleteUser={onDeleteUser}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default HomeAdmin
+export default HomeAdmin;
