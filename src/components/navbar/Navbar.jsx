@@ -1,5 +1,6 @@
 import './Navbar.css';
 import { USER_LEVEL_EMP } from '../../config/Parameter';
+
 const Navbar = () => {
   const userLevel = localStorage.getItem("userLevel");
 
