@@ -1,12 +1,12 @@
 import './Navbar.css';
-import { USER_LEVEL_EMP } from '../../config/Parameter';
+import { HOME_ADMIN, HOME_ADMIN_ATTENDANCE_LIST, HOME_EMP, HOME_EMP_HISTORY, USER_LEVEL_EMP } from '../../config/Parameter';
 
 const Navbar = () => {
   const userLevel = localStorage.getItem("userLevel");
 
   const isEmployeeLevel = userLevel === USER_LEVEL_EMP;
 
-  const homePage = isEmployeeLevel ? "/home/emp" : "/home/admin";
+  const homePage = isEmployeeLevel ? {HOME_EMP} : {HOME_ADMIN};
 
   const logout = () => {
     localStorage.removeItem("userId");
@@ -21,12 +21,12 @@ const Navbar = () => {
 
       {isEmployeeLevel ? (
           <div className='navbar-opt'>
-            <link to="/home/emp/history">History</link>
+            <link to={HOME_EMP_HISTORY}>History</link>
           </div>
         ) : (
           <div className='navbar-opt'>
-            <link to="/home/admin/">User List</link>
-            <link to="/home/admin/AttendanceList">Attendance List</link>
+            <link to={HOME_ADMIN}>User List</link>
+            <link to={HOME_ADMIN_ATTENDANCE_LIST}>Attendance List</link>
           </div>
         )
       }
