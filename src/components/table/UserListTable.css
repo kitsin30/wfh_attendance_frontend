@@ -1,0 +1,314 @@
+.user-list-container {
+  padding: 24px;
+  color: #1f2937;
+}
+
+.user-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.user-list-header h1 {
+  margin: 0 0 6px;
+  font-size: 26px;
+}
+
+.user-list-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.user-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 24px;
+  background: #f3f4f6;
+  border-radius: 8px;
+}
+
+.user-total span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.user-total strong {
+  font-size: 22px;
+}
+
+.user-list-card {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.user-list-toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.user-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 260px;
+}
+
+.user-filter-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-filter-field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+.user-filter-field input:focus {
+  border-color: #2563eb;
+}
+
+.user-search-btn,
+.user-reset-btn,
+.user-create-btn,
+.user-edit-btn,
+.user-delete-btn,
+.user-cancel-btn,
+.user-save-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.user-search-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.user-search-btn:hover {
+  background: #1d4ed8;
+}
+
+.user-reset-btn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.user-reset-btn:hover {
+  background: #d1d5db;
+}
+
+.user-create-btn {
+  margin-left: auto;
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.user-create-btn:hover {
+  background: #15803d;
+}
+
+.user-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.user-table th,
+.user-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.user-table th {
+  background: #f9fafb;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-table td {
+  font-size: 14px;
+}
+
+.user-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.user-empty {
+  padding: 32px !important;
+  text-align: center;
+  color: #6b7280;
+}
+
+.user-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-edit-btn {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.user-edit-btn:hover {
+  background: #bfdbfe;
+}
+
+.user-delete-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.user-delete-btn:hover {
+  background: #fecaca;
+}
+
+.user-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.user-modal {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.user-modal h2 {
+  margin: 0 0 20px;
+  font-size: 20px;
+}
+
+.user-modal p {
+  margin-bottom: 20px;
+  color: #4b5563;
+}
+
+.user-modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.user-modal select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  outline: none;
+  font-size: 14px;
+}
+
+.user-modal select:focus {
+  border-color: #2563eb;
+}
+
+.user-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.user-cancel-btn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.user-cancel-btn:hover {
+  background: #d1d5db;
+}
+
+.user-save-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.user-save-btn:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .user-list-container {
+    padding: 16px;
+  }
+
+  .user-list-header {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .user-list-card {
+    padding: 16px;
+  }
+
+  .user-list-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .user-filter-field {
+    width: 100%;
+  }
+
+  .user-create-btn {
+    margin-left: 0;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-list-header h1 {
+    font-size: 22px;
+  }
+
+  .user-total {
+    padding: 10px 14px;
+  }
+
+  .user-modal {
+    padding: 20px;
+  }
+}
