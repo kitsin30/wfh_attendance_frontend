@@ -244,9 +244,7 @@ const HomeEmp = () => {
 
           <br />
 
-          <button onClick={handleTakePhoto}>
-            Take Photo
-          </button>
+          <button className='takephoto-button' onClick={handleTakePhoto}>Take Photo</button>
         </div>
       )}
 

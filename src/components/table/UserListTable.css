@@ -84,7 +84,20 @@
 
 .user-search-btn,
 .user-reset-btn,
-.user-create-btn,
+.user-create-btn {
+  width: 200px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
 .user-edit-btn,
 .user-delete-btn,
 .user-cancel-btn,
