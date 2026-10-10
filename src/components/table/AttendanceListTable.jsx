@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FaSearch, FaRedo } from 'react-icons/fa';
 import './AttendanceListTable.css';
-import Loading from '../loading/Loading';
 import { USER_LEVEL_EMP } from '../../config/Parameter';
 
 const AttendanceListTable = ({
@@ -13,6 +12,7 @@ const AttendanceListTable = ({
   const [searchUserId, setSearchUserId] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const attendanceList = attendanceData ? attendanceData : [];
 
@@ -88,7 +88,7 @@ const AttendanceListTable = ({
         </div>
 
         <div className="attendance-total">
-          <span>Total Records</span>
+          <span>Total Attendance</span>
           <strong>{filteredAttendance.length}</strong>
         </div>
       </div>
@@ -138,7 +138,9 @@ const AttendanceListTable = ({
           <button type="button" className="attendance-reset-btn" onClick={handleReset}><FaRedo /> Reset</button>
         </form>
 
-        {loading ? Loading : filteredAttendance.length === 0 ? (
+        {loading ? (
+          <p className="attendance-loading">Loading...</p>
+        ) : filteredAttendance.length === 0 ? (
           <div className="attendance-message">
             <div className="attendance-message-box">
               <FaSearch className="empty-search-icon" />
@@ -164,21 +166,19 @@ const AttendanceListTable = ({
                   <th>User ID</th>
                   <th>Check In</th>
                   <th>Check Out</th>
+                  <th>Check In Image</th>
+                  <th>Check Out Image</th>
                 </tr>
               </thead>
 
               <tbody>
                 {filteredAttendance.map((attendance, index) => (
                   <tr key={attendance.id ?? index}>
-                    <td className="row-number">
-                      {index + 1}
-                    </td>
+                    <td className="row-number">{index + 1}</td>
 
                     <td className="attendance-date">
                       {attendance.attendanceDate
-                        ? new Date(
-                          attendance.attendanceDate
-                        ).toLocaleDateString('id-ID', {
+                        ? new Date(attendance.attendanceDate).toLocaleDateString('id-ID', {
                           day: '2-digit',
                           month: 'short',
                           year: 'numeric',
@@ -197,34 +197,85 @@ const AttendanceListTable = ({
                     <td>
                       <span className="attendance-time check-in">
                         {attendance.startAttendTms
-                          ? new Date(
-                            attendance.startAttendTms
-                          ).toLocaleTimeString('id-ID', {
+                          ? new Date(attendance.startAttendTms).toLocaleTimeString('en-GB', {
                             hour: '2-digit',
                             minute: '2-digit',
+                            second: '2-digit',
                             hour12: false,
                           })
-                          : '--:--'}
+                          : '--:--:--'}
                       </span>
                     </td>
 
                     <td>
                       <span className="attendance-time check-out">
                         {attendance.endAttendTms
-                          ? new Date(
-                            attendance.endAttendTms
-                          ).toLocaleTimeString('id-ID', {
+                          ? new Date(attendance.endAttendTms).toLocaleTimeString('en-GB', {
                             hour: '2-digit',
                             minute: '2-digit',
+                            second: '2-digit',
                             hour12: false,
                           })
-                          : '--:--'}
+                          : '--:--:--'}
                       </span>
+                    </td>
+
+                    <td>
+                      {attendance.checkinImg ? (
+                        <button
+                          className="view-image-btn"
+                          onClick={() => setSelectedImage(attendance.checkinImg)}>
+                          View Image
+                        </button>
+                      ) : (
+                        <span className="no-image">No image</span>
+                      )}
+                    </td>
+
+                    <td>
+                      {attendance.checkoutImg ? (
+                        <button
+                          className="view-image-btn"
+                          onClick={() => setSelectedImage(attendance.checkoutImg)}>
+                          View Image
+                        </button>
+                      ) : (
+                        <span className="no-image">No image</span>
+                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {selectedImage && (
+          <div
+            className="attendance-image-overlay"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div
+              className="attendance-image-modal"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="attendance-image-close"
+                onClick={() => setSelectedImage(null)}
+                aria-label="Close image"
+              >
+                &times;
+              </button>
+
+              <h3>Attendance Photo</h3>
+
+              <img
+                src={selectedImage}
+                alt="Attendance check-in or check-out"
+                className="attendance-modal-image"
+              />
+            </div>
           </div>
         )}
 
