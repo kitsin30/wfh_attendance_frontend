@@ -17,7 +17,7 @@ const AttendanceListTable = ({
   const attendanceList = attendanceData ? attendanceData : [];
 
   const userLevel = localStorage.getItem("userLevel");
-  const isEmployeeLevel  = userLevel === USER_LEVEL_EMP;
+  const isEmployeeLevel = userLevel === USER_LEVEL_EMP;
 
   const [appliedFilters, setAppliedFilters] = useState({
     userId: '',
@@ -105,7 +105,7 @@ const AttendanceListTable = ({
                 placeholder="Enter user ID..."
                 value={searchUserId}
                 onChange={(e) => setSearchUserId(e.target.value)} />
-              )
+            )
             }
           </div>
 
@@ -140,17 +140,19 @@ const AttendanceListTable = ({
 
         {loading ? Loading : filteredAttendance.length === 0 ? (
           <div className="attendance-message">
-            <FaSearch className="empty-search-icon" />
+            <div className="attendance-message-box">
+              <FaSearch className="empty-search-icon" />
 
-            <h3>No attendance found</h3>
+              <h3>No attendance found</h3>
 
-            <p>
-              {appliedFilters.userId ||
-                appliedFilters.startDate ||
-                appliedFilters.endDate
-                ? 'Try changing your search filters.'
-                : 'There are no attendance records available.'}
-            </p>
+              <p>
+                {appliedFilters.userId ||
+                  appliedFilters.startDate ||
+                  appliedFilters.endDate
+                  ? 'Try changing your search filters.'
+                  : 'There are no attendance records available.'}
+              </p>
+            </div>
           </div>
         ) : (
           <div className="table-container">

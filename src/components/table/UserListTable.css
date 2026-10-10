@@ -1,6 +1,8 @@
 .user-list-container {
+  min-height: 100vh;
   padding: 24px;
   color: #1f2937;
+  background-color: blue;
 }
 
 .user-list-header {
@@ -17,7 +19,7 @@
 
 .user-list-header p {
   margin: 0;
-  color: #6b7280;
+  color: black;
 }
 
 .user-total {
@@ -270,50 +272,4 @@
 
 .user-save-btn:hover {
   background: #1d4ed8;
-}
-
-@media (max-width: 768px) {
-  .user-list-container {
-    padding: 16px;
-  }
-
-  .user-list-header {
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .user-list-card {
-    padding: 16px;
-  }
-
-  .user-list-toolbar {
-    flex-wrap: wrap;
-  }
-
-  .user-filter-field {
-    width: 100%;
-  }
-
-  .user-create-btn {
-    margin-left: 0;
-  }
-
-  .user-table th,
-  .user-table td {
-    padding: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .user-list-header h1 {
-    font-size: 22px;
-  }
-
-  .user-total {
-    padding: 10px 14px;
-  }
-
-  .user-modal {
-    padding: 20px;
-  }
 }
