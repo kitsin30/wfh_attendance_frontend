@@ -4,6 +4,7 @@ export const RESET_PASSWORD_REQUIRED = 'RESET_PASSWORD_REQUIRED';
 export const USER_LEVEL_OWNER = 1;
 export const USER_LEVEL_ADMIN = 2;
 export const USER_LEVEL_EMP = 3;
+export const TITLE_NAVBAR = 'wfh-attendance';
 
 // url
 export const HOME_EMP_URL = '/home/emp';

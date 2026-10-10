@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './ResetPass.css';
 import { API_URL, HOME_ADMIN_URL, HOME_EMP_URL, LOGIN_SUCCESS, LOGIN_URL, USER_LEVEL_ADMIN, USER_LEVEL_EMP, USER_LEVEL_OWNER } from '../../config/Parameter';
 import Input from '../../components/input/input';
-import Button from '../../components/button/button';
+import LoginButton from '../../components/button/LoginButton';
 
 const ResetPass = () => {
   const [username, setUsername] = useState('');
@@ -109,7 +109,11 @@ const ResetPass = () => {
             placeholder="Confirmation new password"
           />
 
-          <Button type="submit">Reset Password</Button>
+          <LoginButton
+            type="submit"
+            childrenComponent="Reset Password"
+            disabled={false}
+          />
         </form>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './HomeEmp.css';
-import Navbar from '../navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import { API_URL } from '../../config/Parameter';
 
 const HomeEmp = () => {

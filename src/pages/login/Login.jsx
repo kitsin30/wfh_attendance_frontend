@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import { API_URL, HOME_ADMIN_URL, HOME_EMP_URL, LOGIN_SUCCESS, LOGIN_URL, RESET_PASS_URL, RESET_PASSWORD_REQUIRED, USER_LEVEL_ADMIN, USER_LEVEL_EMP, USER_LEVEL_OWNER } from '../../config/Parameter';
 import Input from '../../components/input/input';
-import Button from '../../components/button/LoginButton';
+import LoginButton from '../../components/button/LoginButton';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -87,7 +87,13 @@ const Login = () => {
             placeholder="Enter your password"
           />
 
-          <Button type="submit">Login</Button>
+          <div className='login-button-div'>
+            <LoginButton 
+              type="submit"
+              childrenComponent="Login"
+              disabled={false}
+            />
+          </div>
         </form>
       </div>
     </div>

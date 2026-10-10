@@ -59,6 +59,7 @@ function App() {
       <Router>
         <Routes>
           <Route element={<AnonymousRoute />}>
+            <Route path="/" exact element={<Login />} />
             <Route path={LOGIN_URL} exact element={<Login />} />
             <Route path={RESET_PASS_URL} exact element={<ResetPass />} />
           </Route>

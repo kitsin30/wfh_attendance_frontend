@@ -1,12 +1,12 @@
 import './Navbar.css';
-import { HOME_ADMIN, HOME_ADMIN_ATTENDANCE_LIST, HOME_EMP, HOME_EMP_HISTORY, USER_LEVEL_EMP } from '../../config/Parameter';
+import { HOME_ADMIN_ATTENDANCE_LIST_URL, HOME_ADMIN_URL, HOME_EMP_HISTORY_URL, HOME_EMP_URL, TITLE_NAVBAR, USER_LEVEL_EMP } from '../../config/Parameter';
 
 const Navbar = () => {
   const userLevel = localStorage.getItem("userLevel");
 
   const isEmployeeLevel = userLevel === USER_LEVEL_EMP;
 
-  const homePage = isEmployeeLevel ? {HOME_EMP} : {HOME_ADMIN};
+  const homePage = isEmployeeLevel ? {HOME_EMP_URL} : {HOME_ADMIN_URL};
 
   const logout = () => {
     localStorage.removeItem("userId");
@@ -16,18 +16,19 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className='title-home'>
-        <h3>wfh-attendance</h3>
+        <h3>{TITLE_NAVBAR}</h3>
         <link to={homePage}><h3>Home</h3></link>
       </div>
 
-      {isEmployeeLevel ? (
+      {userLevel && isEmployeeLevel ? (
           <div className='navbar-opt'>
-            <link to={HOME_EMP_HISTORY}>History</link>
+            <link to={HOME_EMP_URL}>Home</link>
+            <link to={HOME_EMP_HISTORY_URL}>History</link>
           </div>
         ) : (
           <div className='navbar-opt'>
-            <link to={HOME_ADMIN}>User List</link>
-            <link to={HOME_ADMIN_ATTENDANCE_LIST}>Attendance List</link>
+            <link to={HOME_ADMIN_URL}>User List</link>
+            <link to={HOME_ADMIN_ATTENDANCE_LIST_URL}>Attendance List</link>
           </div>
         )
       }
