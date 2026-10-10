@@ -10,6 +10,7 @@ const Navbar = () => {
 
   const logout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("userLevel");
   }
 
   return (

@@ -43,7 +43,7 @@ const HomeEmpHistoryAttendance = () => {
     };
 
     fetchUserAttendance();
-  }, []);
+  }, [empData]);
 
   return (
     <div className="attendance-list-page">

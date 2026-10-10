@@ -3,7 +3,7 @@ import './HomeEmp.css';
 import Navbar from '../navbar/Navbar';
 import { API_URL } from '../../config/Parameter';
 
-const Home = () => {
+const HomeEmp = () => {
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
 
@@ -195,4 +195,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomeEmp
