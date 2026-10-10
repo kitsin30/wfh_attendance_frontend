@@ -93,11 +93,12 @@ const HomeAdmin = () => {
     }
   }
 
-  const onEditUser = async (userId, updUid) => {
+  const onEditUser = async (userId, updUid, password) => {
     try {
       const userData = {
         userId: userId,
-        updUid: updUid
+        updUid: updUid,
+        password: password
       };
 
       const response = await fetch(`${API_URL}/users/reset-flag`, {

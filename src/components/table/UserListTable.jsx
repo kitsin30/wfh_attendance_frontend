@@ -27,9 +27,11 @@ const UserListTable = ({
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newUser, setNewUser] = useState(initialNewUser);
-  const currentUserId = localStorage.getItem("userId");
-  console.log(currentUserId);
 
+  const [editPass, setEditPass] = useState('');
+
+  const currentUserId = localStorage.getItem("userId");
+  
   const getUserLevelName = (userLevel) => {
     switch (Number(userLevel)) {
       case USER_LEVEL_OWNER:
@@ -63,12 +65,18 @@ const UserListTable = ({
     setSelectedUser(user);
   };
 
-  const handleSave = () => {
+  const handleSaveEdit = () => {
     if (!selectedUser) return;
 
-    onEditUser(selectedUser.userId, currentUserId);
+    onEditUser(selectedUser.userId, currentUserId, editPass);
     setSelectedUser(null);
+    setEditPass('');
   };
+
+  const handleCancelEdit = () => {
+    setSelectedUser(null);
+    setEditPass('');
+  }
 
   const handleOpenCreate = () => {
     setNewUser(initialNewUser);
@@ -189,7 +197,7 @@ const UserListTable = ({
                             type="button"
                             className="user-edit-btn"
                             onClick={() => handleEdit(user)}
-                            disabled={user.resetPassFlg === 'Y' || user.userLevel === USER_LEVEL_OWNER}
+                            disabled={user.userLevel === USER_LEVEL_OWNER}
                           >
                             <FaEdit />Edit
                           </button>
@@ -298,11 +306,25 @@ const UserListTable = ({
 
             <p>User ID: <strong>{selectedUser.userId}</strong></p>
 
+            <div className="user-modal-field">
+              <label htmlFor="editPass">new password</label>
+
+              <input
+                id="editPass"
+                name="editPass"
+                type="password"
+                placeholder="Enter your new password"
+                value={editPass}
+                onChange={(e) => setEditPass(e.target.value)}
+                required
+              />
+            </div>
+
             <div className="user-modal-actions">
               <button
                 type="button"
                 className="user-cancel-btn"
-                onClick={() => setSelectedUser(null)}
+                onClick={handleCancelEdit}
               >
                 Cancel
               </button>
@@ -310,7 +332,7 @@ const UserListTable = ({
               <button
                 type="button"
                 className="user-save-btn"
-                onClick={handleSave}
+                onClick={handleSaveEdit}
               >
                 Save
               </button>
