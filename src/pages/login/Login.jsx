@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import { API_URL, HOME_ADMIN_URL, HOME_EMP_URL, LOGIN_SUCCESS, LOGIN_URL, RESET_PASS_URL, RESET_PASSWORD_REQUIRED, USER_LEVEL_ADMIN, USER_LEVEL_EMP, USER_LEVEL_OWNER } from '../../config/Parameter';
-import Input from '../../components/input/input';
+import Input from '../../components/input/Input';
 import LoginButton from '../../components/button/LoginButton';
 
 const Login = () => {
@@ -37,14 +37,14 @@ const Login = () => {
         return;
       }
       
-      localStorage.setItem('userId', JSON.stringify(data.userEntity.userId));
+      localStorage.setItem('userId', data.userEntity.userId);
       
       if (data.status === RESET_PASSWORD_REQUIRED) {
         navigate(RESET_PASS_URL);
         return;
       }
 
-      localStorage.setItem('userLevel', JSON.stringify(data.userEntity.userLevel));
+      localStorage.setItem('userLevel', data.userEntity.userLevel);
 
       if (data.status === LOGIN_SUCCESS) {
         const userLevel = data.userEntity.userLevel

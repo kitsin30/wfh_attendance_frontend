@@ -3,11 +3,7 @@ import { HOME_ADMIN_ATTENDANCE_LIST_URL, HOME_ADMIN_URL, HOME_EMP_HISTORY_URL, H
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const userLevel = localStorage.getItem("userLevel");
-
-  const isEmployeeLevel = userLevel === USER_LEVEL_EMP;
-
-  const homePage = isEmployeeLevel ? {HOME_EMP_URL} : {HOME_ADMIN_URL};
+  const userLevel = Number(localStorage.getItem('userLevel'));
 
   const logout = () => {
     localStorage.removeItem("userId");
@@ -18,10 +14,9 @@ const Navbar = () => {
     <div className='navbar'>
       <div className='title-home'>
         <h3>{TITLE_NAVBAR}</h3>
-        <Link to={homePage}><h3>Home</h3></Link>
       </div>
 
-      {userLevel && isEmployeeLevel ? (
+      {userLevel && userLevel === USER_LEVEL_EMP ? (
           <div className='navbar-opt'>
             <Link to={HOME_EMP_URL}>Home</Link>
             <Link to={HOME_EMP_HISTORY_URL}>History</Link>

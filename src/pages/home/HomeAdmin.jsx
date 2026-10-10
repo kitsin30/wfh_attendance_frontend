@@ -9,6 +9,30 @@ const HomeAdmin = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const fetchUserList = async () => {
+    try {
+      const response = await fetch(`${API_URL}/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch attendance');
+      }
+
+      setUserList(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error fetching attendance:', error);
+      alert(error.message || 'Failed to fetch attendance');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     const fetchUserList = async () => {
       try {
@@ -37,11 +61,12 @@ const HomeAdmin = () => {
     fetchUserList();
   }, []);
 
-  const onCreateUser = async ({userId, password, updUid}) => {
+  const onCreateUser = async (userId, password, userLevel, updUid) => {
     try {
       const userData = {
         userId: userId,
         password: password,
+        userLevel: userLevel,
         updUid: updUid
       };
 
@@ -58,15 +83,17 @@ const HomeAdmin = () => {
       if (!response.ok) {
         throw new Error(data.message || 'Failed to fetch attendance');
       }
+      alert(data.message);
     } catch (error) {
       console.error('Error fetching attendance:', error);
       alert(error.message || 'Failed to fetch attendance');
     } finally {
+      await fetchUserList();
       setLoading(false);
     }
   }
 
-  const onEditUser = async ({userId, updUid}) => {
+  const onEditUser = async (userId, updUid) => {
     try {
       const userData = {
         userId: userId,
@@ -86,10 +113,12 @@ const HomeAdmin = () => {
       if (!response.ok) {
         throw new Error(data.message || 'Failed to fetch attendance');
       }
+      alert(data.message);
     } catch (error) {
       console.error('Error fetching attendance:', error);
       alert(error.message || 'Failed to fetch attendance');
     } finally {
+      await fetchUserList();
       setLoading(false);
     }
   }
@@ -108,10 +137,12 @@ const HomeAdmin = () => {
       if (!response.ok) {
         throw new Error(data.message || 'Failed to fetch attendance');
       }
+      alert(data.message);
     } catch (error) {
       console.error('Error fetching attendance:', error);
       alert(error.message || 'Failed to fetch attendance');
     } finally {
+      await fetchUserList();
       setLoading(false);
     }
   }

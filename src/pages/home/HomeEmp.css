@@ -1,5 +1,4 @@
 .home-page{
-  width: 100%;
   min-height: 100vh;
   padding-bottom: 10px;
   background: white;
@@ -27,8 +26,19 @@
   font-size: 18px;
 }
 
-.home-page button {
-  margin: 20px 8px;
+.home-page .home-page-button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-page .home-page-button button {
+  width: 50%;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 12px 25px;
   border: none;
   border-radius: 8px;
@@ -57,36 +67,10 @@
 }
 
 .home-page h3 {
-  margin-top: 25px;
   text-align: center;
 }
 
 .home-page video + br + button {
   display: block;
   margin: 15px auto;
-}
-
-@media (max-width: 600px) {
-  .home-page {
-    padding: 20px;
-  }
-
-  .home-page h1 {
-    font-size: 25px;
-  }
-
-  .home-page h2 {
-    font-size: 16px;
-  }
-
-  .home-page button {
-    width: 100%;
-    max-width: 300px;
-    margin: 8px auto;
-    display: block;
-  }
-
-  .home-page video {
-    width: 100%;
-  }
 }

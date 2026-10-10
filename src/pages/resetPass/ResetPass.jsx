@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ResetPass.css';
 import { API_URL, LOGIN_URL } from '../../config/Parameter';
-import Input from '../../components/input/input';
+import Input from '../../components/input/Input';
 import LoginButton from '../../components/button/LoginButton';
 
 const ResetPass = () => {

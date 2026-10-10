@@ -8,8 +8,8 @@ import HomeAdminListAttendance from './pages/home/HomeAdminListAttendance';
 import HomeEmpHistoryAttendance from './pages/home/HomeEmpHistoryAttendance';
 
 const PrivateAdminRoute = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  const userLevel = JSON.parse(localStorage.getItem('userLevel'));
+  const userId = localStorage.getItem('userId');
+  const userLevel = Number(localStorage.getItem('userLevel'));
   if (userId && userLevel) {
     if (userLevel === USER_LEVEL_EMP) {
       return <Navigate to={HOME_EMP_URL} replace />;
@@ -23,8 +23,8 @@ const PrivateAdminRoute = () => {
 }
 
 const PrivateEmpRoute = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  const userLevel = JSON.parse(localStorage.getItem('userLevel'));
+  const userId = localStorage.getItem('userId');
+  const userLevel = Number(localStorage.getItem('userLevel'));
   if (userId && userLevel) {
     if (userLevel === USER_LEVEL_EMP) {
       return <Outlet />
@@ -38,8 +38,8 @@ const PrivateEmpRoute = () => {
 }
 
 const AnonymousRoute = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  const userLevel = JSON.parse(localStorage.getItem('userLevel'));
+  const userId = localStorage.getItem('userId');
+  const userLevel = Number(localStorage.getItem('userLevel'));
   if (userId && userLevel) {
     if (userLevel === USER_LEVEL_EMP) {
       return <Navigate to={HOME_EMP_URL} replace />;
@@ -57,8 +57,8 @@ const AnonymousRoute = () => {
 }
 
 const AnonymousResetPassRoute = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  const userLevel = JSON.parse(localStorage.getItem('userLevel'));
+  const userId = localStorage.getItem('userId');
+  const userLevel = Number(localStorage.getItem('userLevel'));
   if (userId && userLevel) {
     if (userLevel === USER_LEVEL_EMP) {
       return <Navigate to={HOME_EMP_URL} replace />;

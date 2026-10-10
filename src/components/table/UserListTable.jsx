@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaSearch, FaRedo, FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
-import { USER_LEVEL_OWNER, USER_LEVEL_ADMIN, USER_LEVEL_EMP } from '../../config/Parameter';
+import { USER_LEVEL_ADMIN, USER_LEVEL_EMP, USER_LEVEL_OWNER } from '../../config/Parameter';
 
 import './UserListTable.css';
 import Loading from '../loading/Loading';
@@ -15,6 +15,7 @@ const UserListTable = ({
 }) => {
   const initialNewUser = {
     userId: '',
+    password: '',
     userLevel: '',
     resetPassFlg: 'Y',
   };
@@ -23,17 +24,16 @@ const UserListTable = ({
   const [appliedSearch, setAppliedSearch] = useState('');
 
   const [selectedUser, setSelectedUser] = useState(null);
-  const [resetPassFlg, setResetPassFlg] = useState('N');
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newUser, setNewUser] = useState(initialNewUser);
-
   const currentUserId = localStorage.getItem("userId");
+  console.log(currentUserId);
 
   const getUserLevelName = (userLevel) => {
     switch (Number(userLevel)) {
       case USER_LEVEL_OWNER:
-        return 'Owner';
+        return 'owner';
       case USER_LEVEL_ADMIN:
         return 'Admin';
       case USER_LEVEL_EMP:
@@ -44,7 +44,7 @@ const UserListTable = ({
   };
 
   const filteredUsers = userData.filter((user) =>
-    String(user.userId ?? '')
+    currentUserId.toLowerCase() !== user.userId.toLowerCase() && String(user.userId ?? '')
       .toLowerCase()
       .includes(appliedSearch.toLowerCase())
   );
@@ -61,7 +61,6 @@ const UserListTable = ({
 
   const handleEdit = (user) => {
     setSelectedUser(user);
-    setResetPassFlg(user.resetPassFlg ?? 'N');
   };
 
   const handleSave = () => {
@@ -93,7 +92,7 @@ const UserListTable = ({
       return;
     }
 
-    onCreateUser(newUser.userId.trim(), Number(newUser.userLevel), 'Y');
+    onCreateUser(newUser.userId.trim(), newUser.password, Number(newUser.userLevel), currentUserId);
 
     setShowCreateModal(false);
     setNewUser(initialNewUser);
@@ -190,6 +189,7 @@ const UserListTable = ({
                             type="button"
                             className="user-edit-btn"
                             onClick={() => handleEdit(user)}
+                            disabled={user.resetPassFlg === 'Y' || user.userLevel === USER_LEVEL_OWNER}
                           >
                             <FaEdit />Edit
                           </button>
@@ -198,6 +198,7 @@ const UserListTable = ({
                             type="button"
                             className="user-delete-btn"
                             onClick={() => handleDelete(user.userId)}
+                            disabled={user.userLevel === USER_LEVEL_OWNER}
                           >
                             <FaTrash />Delete
                           </button>
@@ -238,6 +239,20 @@ const UserListTable = ({
               </div>
 
               <div className="user-modal-field">
+                <label htmlFor="newPassWord">Password</label>
+
+                <input
+                  id="newPassWord"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={newUser.password}
+                  onChange={handleNewUserChange}
+                  required
+                />
+              </div>
+
+              <div className="user-modal-field">
                 <label htmlFor="newUserLevel">User Level</label>
 
                 <select
@@ -248,7 +263,6 @@ const UserListTable = ({
                   required
                 >
                   <option value="">Select User Level</option>
-                  <option value={USER_LEVEL_OWNER}>Owner</option>
                   <option value={USER_LEVEL_ADMIN}>Admin</option>
                   <option value={USER_LEVEL_EMP}>Employee</option>
                 </select>
@@ -280,26 +294,9 @@ const UserListTable = ({
             aria-modal="true"
             aria-labelledby="edit-user-title"
           >
-            <h2 id="edit-user-title">Edit User</h2>
+            <h2 id="edit-user-title">Are you want to reset Pass User</h2>
 
-            <p>
-              User ID: <strong>{selectedUser.userId}</strong>
-            </p>
-
-            <div className="user-modal-field">
-              <label htmlFor="resetPassFlg">
-                Reset Password Flag
-              </label>
-
-              <select
-                id="resetPassFlg"
-                value={resetPassFlg}
-                onChange={(e) => setResetPassFlg(e.target.value)}
-              >
-                <option value="N">N - No</option>
-                <option value="Y">Y - Yes</option>
-              </select>
-            </div>
+            <p>User ID: <strong>{selectedUser.userId}</strong></p>
 
             <div className="user-modal-actions">
               <button
