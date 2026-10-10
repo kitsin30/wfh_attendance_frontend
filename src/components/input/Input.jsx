@@ -7,6 +7,7 @@ const Input = ({
   onChange,
   placeholder,
   name,
+  readOnly = false
 }) => {
   return (
     <div className="input-group">
@@ -19,6 +20,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        readOnly={readOnly}
       />
     </div>
   );

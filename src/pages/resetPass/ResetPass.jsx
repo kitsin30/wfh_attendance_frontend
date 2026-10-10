@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ResetPass.css';
-import { API_URL, HOME_ADMIN_URL, HOME_EMP_URL, LOGIN_SUCCESS, LOGIN_URL, USER_LEVEL_ADMIN, USER_LEVEL_EMP, USER_LEVEL_OWNER } from '../../config/Parameter';
+import { API_URL, LOGIN_URL } from '../../config/Parameter';
 import Input from '../../components/input/input';
 import LoginButton from '../../components/button/LoginButton';
 
 const ResetPass = () => {
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  const userId = localStorage.getItem('userId').replace(/"/g, '');;
 
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const ResetPass = () => {
     }
 
     const resetData = {
-      userId: username,
+      userId: userId,
       password: password,
       newPassword: newPassword
     };
@@ -44,24 +45,14 @@ const ResetPass = () => {
         console.log("false");
         alert(data.message + ', back to login page');
         navigate(LOGIN_URL);
+        localStorage.removeItem('userId')
         return;
       }
 
-      localStorage.setItem('userId', JSON.stringify(data.userEntity.userId));
-
-      if (data.status === LOGIN_SUCCESS) {
-        const userLevel = data.userEntity.userLevel
-        if (userLevel === USER_LEVEL_EMP) {
-          navigate(HOME_EMP_URL);
-          return;
-        }
-        if (userLevel === USER_LEVEL_OWNER || userLevel === USER_LEVEL_ADMIN) {
-          navigate(HOME_ADMIN_URL);
-          return;
-        }
-        navigate(LOGIN_URL);
-        return;
-      }
+      alert(data.message + ', back to login page');
+      navigate(LOGIN_URL);
+      localStorage.removeItem('userId');
+      return;
     } catch (error) {
       console.error(error);
     }
@@ -69,17 +60,16 @@ const ResetPass = () => {
 
   return (
     <div className="reset-page">
-      <div className="wrapper">
+      <div className="wrapper-reset">
         <h1>Reset Pass</h1>
 
         <form onSubmit={handleReset}>
           <Input
-            label="Username"
-            name="username"
+            label="userId"
+            name="userId"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
+            value={userId}
+            readOnly
           />
 
           <Input

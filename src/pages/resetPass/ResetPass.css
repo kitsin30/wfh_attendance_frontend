@@ -1,13 +1,13 @@
-.login-page {
+.reset-page {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
-.wrapper{
+.wrapper-reset{
   width: 420px;
-  height: 340px;
+  height: 430px;
   background: red;
   color: white;
 }

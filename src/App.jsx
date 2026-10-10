@@ -17,9 +17,9 @@ const PrivateAdminRoute = () => {
     if (userLevel === USER_LEVEL_OWNER || userLevel === USER_LEVEL_ADMIN) {
         return <Outlet />
     }
-  } else {
-    return <Navigate to="/" replace />
   }
+
+  return <Navigate to="/" replace />
 }
 
 const PrivateEmpRoute = () => {
@@ -32,9 +32,9 @@ const PrivateEmpRoute = () => {
     if (userLevel === USER_LEVEL_OWNER || userLevel === USER_LEVEL_ADMIN) {
       return <Navigate to={HOME_ADMIN_URL} replace />;
     }
-  } else {
-    return <Navigate to="/" replace />
   }
+
+  return <Navigate to="/" replace />
 }
 
 const AnonymousRoute = () => {
@@ -47,9 +47,32 @@ const AnonymousRoute = () => {
     if (userLevel === USER_LEVEL_OWNER || userLevel === USER_LEVEL_ADMIN) {
       return <Navigate to={HOME_ADMIN_URL} replace />;
     }
-  } else {
+  }
+
+  if (userId && !userLevel) {
+    return <Navigate to={RESET_PASS_URL} replace />;
+  }
+  
+  return <Outlet />
+}
+
+const AnonymousResetPassRoute = () => {
+  const userId = JSON.parse(localStorage.getItem('userId'));
+  const userLevel = JSON.parse(localStorage.getItem('userLevel'));
+  if (userId && userLevel) {
+    if (userLevel === USER_LEVEL_EMP) {
+      return <Navigate to={HOME_EMP_URL} replace />;
+    }
+    if (userLevel === USER_LEVEL_OWNER || userLevel === USER_LEVEL_ADMIN) {
+      return <Navigate to={HOME_ADMIN_URL} replace />;
+    }
+  } 
+  
+  if (userId && !userLevel) {
     return <Outlet />
   }
+
+  return <Navigate to="/" replace />
 }
 
 function App() {
@@ -61,6 +84,8 @@ function App() {
           <Route element={<AnonymousRoute />}>
             <Route path="/" exact element={<Login />} />
             <Route path={LOGIN_URL} exact element={<Login />} />
+          </Route>
+          <Route element={<AnonymousResetPassRoute />}>
             <Route path={RESET_PASS_URL} exact element={<ResetPass />} />
           </Route>
           <Route element={<PrivateAdminRoute />} >

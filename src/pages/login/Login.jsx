@@ -36,14 +36,15 @@ const Login = () => {
         alert(data.message);
         return;
       }
-
+      
       localStorage.setItem('userId', JSON.stringify(data.userEntity.userId));
-      localStorage.setItem('userLevel', JSON.stringify(data.userEntity.userLevel));
       
       if (data.status === RESET_PASSWORD_REQUIRED) {
         navigate(RESET_PASS_URL);
         return;
       }
+
+      localStorage.setItem('userLevel', JSON.stringify(data.userEntity.userLevel));
 
       if (data.status === LOGIN_SUCCESS) {
         const userLevel = data.userEntity.userLevel
