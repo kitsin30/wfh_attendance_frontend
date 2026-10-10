@@ -9,15 +9,13 @@ const HomeEmpHistoryAttendance = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const userIdLocal = localStorage.getItem("userId");
-
-  const empData = {
-    userId: userIdLocal,
-    dateOrderBy: 'ASC'
-  }
-
   useEffect(() => {
     const fetchUserAttendance = async () => {
+      const userIdLocal = localStorage.getItem("userId");
+      const empData = {
+        userId: userIdLocal,
+        dateOrderBy: 'ASC'
+      }
       try {
         const response = await fetch(`${API_URL}/attendance/get-user-all-attend`, {
           method: 'POST',
@@ -43,7 +41,7 @@ const HomeEmpHistoryAttendance = () => {
     };
 
     fetchUserAttendance();
-  }, [empData]);
+  }, []);
 
   return (
     <div className="attendance-list-page">
